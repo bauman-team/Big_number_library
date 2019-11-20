@@ -101,15 +101,16 @@ Big_number summator(const Big_number &a, const Big_number &b)
 	for (int i = 0; i < min(a.num.size(), b.num.size()); i++)
 	{
 		buffer += a.num[i] + b.num[i];
-		c.num.push_back(buffer % 1000000000);
-		buffer /= 1000000000;
+		c.num.push_back(buffer % 1000'000'000);
+		buffer /= 1000'000'000;
 	}
 	if (a.num.size() > b.num.size())
 	{
-		c.num.push_back(a.num[b.num.size()] + buffer);
-		for (int i = b.num.size() + 1; i < a.num.size(); i++)
+		for (int i = b.num.size(); i < a.num.size(); i++)
 		{
-			c.num.push_back(a.num[i]);
+			buffer += a.num[i];
+			c.num.push_back(buffer % 1000'000'000);
+			buffer /= 1000'000'000;
 		}
 	}
 	else if (a.num.size() < b.num.size())
@@ -117,10 +118,12 @@ Big_number summator(const Big_number &a, const Big_number &b)
 		c.num.push_back(b.num[a.num.size()] + buffer);
 		for (int i = a.num.size() + 1; i < b.num.size(); i++)
 		{
-			c.num.push_back(b.num[i]);
+			buffer += b.num[i];
+			c.num.push_back(buffer % 1000'000'000);
+			buffer /= 1000'000'000;
 		}
 	}
-	else if (buffer)
+	if (buffer)
 		c.num.push_back(1);
 	return c;
 }
