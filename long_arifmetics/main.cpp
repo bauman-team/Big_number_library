@@ -52,7 +52,7 @@ struct Big_number
 		}
 		if (this->num.size() > b.num.size())
 		{
-			for (int i = b.num.size() + 1; i < this->num.size(); i++)
+			for (int i = b.num.size(); i < this->num.size(); i++)
 			{
 				buffer += this->num[i];
 				c.num.push_back(buffer % 1000'000'000);
@@ -61,7 +61,7 @@ struct Big_number
 		}
 		else if (this->num.size() < b.num.size())
 		{
-			for (int i = this->num.size() + 1; i < b.num.size(); i++)
+			for (int i = this->num.size(); i < b.num.size(); i++)
 			{
 				buffer += b.num[i];
 				c.num.push_back(buffer % 1000'000'000);
