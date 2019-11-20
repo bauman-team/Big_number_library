@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 struct Big_number
 {
 	vector <int> num;
@@ -16,13 +15,12 @@ struct Big_number
 		for (int i = number.num.size() - 1; i >= 0; i--)
 		{
 			int buffer = 100'000'000;
-			//buffer /= 10
 			if (i != number.num.size() - 1)
-			while (buffer > number.num[i] && buffer)
-			{
-				out << 0;
-				buffer /= 10;
-			}
+				while (buffer > number.num[i] && buffer)
+				{
+					out << 0;
+					buffer /= 10;
+				}
 			if (buffer)
 				out << number.num[i];
 		}
@@ -74,53 +72,15 @@ struct Big_number
 	}
 };
 
-Big_number summator(const Big_number&, const Big_number&);
-
-
 
 int main()
 {
-	string s_x, s_y;
-	Big_number x, y;
+	Big_number x, y, result;
 
 	cin >> x >> y;
-
-	//Big_number result = summator(x, y);
-	Big_number result = x + y;
-	
-	cout << result;
+	result = x + y;
+	cout << result << endl;
 
 	system("pause");
 	return 0;
-}
-
-Big_number summator(const Big_number &a, const Big_number &b)
-{
-	int buffer = 0;
-	Big_number c;
-	for (int i = 0; i < min(a.num.size(), b.num.size()); i++)
-	{
-		buffer += a.num[i] + b.num[i];
-		c.num.push_back(buffer % 1000000000);
-		buffer /= 1000000000;
-	}
-	if (a.num.size() > b.num.size())
-	{
-		c.num.push_back(a.num[b.num.size()] + buffer);
-		for (int i = b.num.size() + 1; i < a.num.size(); i++)
-		{
-			c.num.push_back(a.num[i]);
-		}
-	}
-	else if (a.num.size() < b.num.size())
-	{
-		c.num.push_back(b.num[a.num.size()] + buffer);
-		for (int i = a.num.size() + 1; i < b.num.size(); i++)
-		{
-			c.num.push_back(b.num[i]);
-		}
-	}
-	else if (buffer)
-		c.num.push_back(1);
-	return c;
 }
