@@ -54,21 +54,23 @@ struct Big_number
 		}
 		if (this->num.size() > b.num.size())
 		{
-			c.num.push_back(this->num[b.num.size()] + buffer);
 			for (int i = b.num.size() + 1; i < this->num.size(); i++)
 			{
-				c.num.push_back(this->num[i]);
+				buffer += this->num[i];
+				c.num.push_back(buffer % 1000'000'000);
+				buffer /= 1000'000'000;
 			}
 		}
 		else if (this->num.size() < b.num.size())
 		{
-			c.num.push_back(b.num[this->num.size()] + buffer);
 			for (int i = this->num.size() + 1; i < b.num.size(); i++)
 			{
-				c.num.push_back(b.num[i]);
+				buffer += b.num[i];
+				c.num.push_back(buffer % 1000'000'000);
+				buffer /= 1000'000'000;
 			}
 		}
-		else if (buffer)
+		if (buffer)
 			c.num.push_back(1);
 		return c;
 	}
