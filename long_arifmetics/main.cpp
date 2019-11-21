@@ -40,7 +40,7 @@ struct Big_number
 		return in;
 	}
 
-	Big_number operator+ (Big_number b)
+	Big_number operator+ (Big_number b) // Big_number + Big_number
 	{
 		int buffer = 0;
 		Big_number c;
@@ -72,6 +72,40 @@ struct Big_number
 			c.num.push_back(1);
 		return c;
 	}
+
+	Big_number& operator+ (int n) // Big_number + int
+	{
+		Big_number c;
+		c.num.push_back(n);
+		*this = *this + c;
+		return *this;
+	}
+
+	Big_number& operator+= (Big_number b) // Big_number += Big_number
+	{
+		*this = *this + b;
+		return *this;
+	}
+
+	Big_number& operator+= (int n) // Big_number += int
+	{
+		Big_number c;
+		c.num.push_back(n);
+		*this = *this + c;
+		return *this;
+	}
+
+	Big_number operator++ (int) // Big_number++
+	{
+		*this = *this + 1;
+		return *this;
+	}
+
+	Big_number& operator++ () // ++Big_number
+	{
+		*this = *this + 1;
+		return *this;
+	}
 };
 
 
@@ -80,8 +114,10 @@ int main()
 	Big_number x, y, result;
 
 	cin >> x >> y;
-	result = x + y;
-	cout << result << endl;
+	//result = x + y;
+	x += y;
+	x++;
+	cout << x << endl;
 
 	system("pause");
 	return 0;
