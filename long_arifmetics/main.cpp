@@ -89,9 +89,7 @@ struct Big_number
 
 	Big_number& operator+= (int n) // Big_number += int
 	{
-		Big_number c;
-		c.num.push_back(n);
-		*this = *this + c;
+		*this = *this + n;
 		return *this;
 	}
 
