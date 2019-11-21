@@ -3,6 +3,7 @@
 #include <string>
 #include <math.h>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -10,6 +11,18 @@ struct Big_number
 {
 	vector <int> num;
 	bool isNegative = false;
+
+	static void string_to_big_number(Big_number &number, string s_x)
+	{
+		for (int i = s_x.size(); i > 0; i -= 9)
+		{
+			if (i >= 9)
+				number.num.push_back(atoi(s_x.substr(i - 9, 9).c_str()));
+			else
+				number.num.push_back(atoi(s_x.substr(0, i).c_str()));
+		}
+	}
+
 	friend ostream& operator<< (ostream &out, const Big_number &number)
 	{
 		for (int i = number.num.size() - 1; i >= 0; i--)
@@ -26,17 +39,12 @@ struct Big_number
 		}
 		return out;
 	}
+
 	friend istream& operator>> (istream &in, Big_number &number)
 	{
 		string s_x;
 		cin >> s_x;
-		for (int i = s_x.size(); i > 0; i -= 9)
-		{
-			if (i >= 9)
-				number.num.push_back(atoi(s_x.substr(i - 9, 9).c_str()));
-			else
-				number.num.push_back(atoi(s_x.substr(0, i).c_str()));
-		}
+		string_to_big_number(number, s_x);
 		return in;
 	}
 
@@ -75,8 +83,10 @@ struct Big_number
 
 	Big_number& operator+ (int n) // Big_number + int
 	{
+		ostringstream s_x;
+		s_x << n;
 		Big_number c;
-		c.num.push_back(n);
+		string_to_big_number(c, s_x.str());
 		*this = *this + c;
 		return *this;
 	}
@@ -113,8 +123,8 @@ int main()
 
 	cin >> x >> y;
 	//result = x + y;
-	x += y;
-	x++;
+	x += 1'999'999'999;
+	//x++;
 	cout << x << endl;
 
 	system("pause");
