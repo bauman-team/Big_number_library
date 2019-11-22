@@ -14,6 +14,11 @@ struct Big_number
 
 	static void string_to_big_number(Big_number &number, string s_x)
 	{
+		if (s_x[0] == '-')
+		{
+			number.isNegative = true;
+			s_x.erase(0, 1);
+		}
 		for (int i = s_x.size(); i > 0; i -= 9)
 		{
 			if (i >= 9)
@@ -25,6 +30,8 @@ struct Big_number
 
 	friend ostream& operator<< (ostream &out, const Big_number &number)
 	{
+		if (number.isNegative)
+			out << '-';
 		for (int i = number.num.size() - 1; i >= 0; i--)
 		{
 			int buffer = 100'000'000;
@@ -50,34 +57,66 @@ struct Big_number
 
 	Big_number operator+ (Big_number b) // Big_number + Big_number
 	{
-		int buffer = 0;
 		Big_number c;
-		for (int i = 0; i < min(this->num.size(), b.num.size()); i++)
+		if (this->isNegative != b.isNegative) // Сложение не меняет знаки переменных => если они разные => вычитание
 		{
-			buffer += this->num[i] + b.num[i];
-			c.num.push_back(buffer % 1000000000);
-			buffer /= 1000000000;
-		}
-		if (this->num.size() > b.num.size())
-		{
-			for (int i = b.num.size(); i < this->num.size(); i++)
+			if (this->isNegative)
 			{
-				buffer += this->num[i];
-				c.num.push_back(buffer % 1000'000'000);
-				buffer /= 1000'000'000;
+				this->isNegative = false;
+				c = b - *this;
+			}
+			else
+			{
+				b.isNegative = false;
+				c = *this - b;
 			}
 		}
-		else if (this->num.size() < b.num.size())
+		else
 		{
-			for (int i = this->num.size(); i < b.num.size(); i++)
+			int buffer = 0;
+			c.isNegative = b.isNegative;
+			for (int i = 0; i < min(this->num.size(), b.num.size()); i++)
 			{
-				buffer += b.num[i];
-				c.num.push_back(buffer % 1000'000'000);
-				buffer /= 1000'000'000;
+				buffer += this->num[i] + b.num[i];
+				c.num.push_back(buffer % 1'000'000'000);
+				buffer /= 1'000'000'000;
 			}
+			if (this->num.size() > b.num.size())
+			{
+				for (int i = b.num.size(); i < this->num.size(); i++)
+				{
+					buffer += this->num[i];
+					c.num.push_back(buffer % 1000'000'000);
+					buffer /= 1'000'000'000;
+				}
+			}
+			else if (this->num.size() < b.num.size())
+			{
+				for (int i = this->num.size(); i < b.num.size(); i++)
+				{
+					buffer += b.num[i];
+					c.num.push_back(buffer % 1'000'000'000);
+					buffer /= 1'000'000'000;
+				}
+			}
+			if (buffer)
+				c.num.push_back(1);
 		}
-		if (buffer)
-			c.num.push_back(1);
+		return c;
+	}
+
+	Big_number operator- (Big_number b) // Big_number - Big_number
+	{
+		Big_number c;
+		if (this->isNegative != b.isNegative) // Вычитание меняет знак => переменные станут одного занка => сложение
+		{
+			b.isNegative = !b.isNegative; 
+			c = *this + b;
+		}
+		else
+		{
+			// Здесь надо переопределить операцию вычитания
+		}
 		return c;
 	}
 
@@ -121,9 +160,9 @@ int main()
 {
 	Big_number x, y, result;
 
-	cin >> x >> y;
+	cin >> x;
 	//result = x + y;
-	x += 1'999'999'999;
+	x += -1'999'999'999;
 	//x++;
 	cout << x << endl;
 
