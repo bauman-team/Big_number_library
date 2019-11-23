@@ -3,7 +3,6 @@
 #include <string>
 #include <math.h>
 #include <algorithm>
-#include <sstream>
 
 using namespace std;
 
@@ -12,7 +11,7 @@ struct Big_number
 	vector <int> num;
 	bool isNegative = false;
 
-	static void string_to_big_number(Big_number &number, string s_x)
+	static void string_to_big_number(Big_number& number, string s_x)
 	{
 		if (s_x[0] == '-')
 		{
@@ -28,7 +27,14 @@ struct Big_number
 		}
 	}
 
-	friend ostream& operator<< (ostream &out, const Big_number &number)
+	static void int_to_big_number(Big_number& number, int i_x)
+	{
+		number.num.push_back(i_x % 1'000'000'000);
+		if (i_x / 1'000'000'000)
+			number.num.push_back(i_x / 1'000'000'000);	
+	}
+
+	friend ostream& operator<< (ostream &out, Big_number number)
 	{
 		if (number.isNegative)
 			out << '-';
@@ -47,7 +53,7 @@ struct Big_number
 		return out;
 	}
 
-	friend istream& operator>> (istream &in, Big_number &number)
+	friend istream& operator>> (istream &in, Big_number& number)
 	{
 		string s_x;
 		cin >> s_x;
@@ -120,17 +126,18 @@ struct Big_number
 		return c;
 	}
 
-	Big_number& operator+ (int n) // Big_number + int
+	Big_number operator+ (int n) // Big_number + int
 	{
-		ostringstream s_x;
+		/*ostringstream s_x;
 		s_x << n;
 		Big_number c;
-		string_to_big_number(c, s_x.str());
-		*this = *this + c;
-		return *this;
+		string_to_big_number(c, s_x.str());*/
+		Big_number c;
+		int_to_big_number(c, n);
+		return *this + c;
 	}
 
-	Big_number& operator+= (Big_number b) // Big_number += Big_number
+	Big_number& operator+= (const Big_number& b) // Big_number += Big_number
 	{
 		*this = *this + b;
 		return *this;
@@ -142,16 +149,45 @@ struct Big_number
 		return *this;
 	}
 
-	Big_number operator++ (int) // Big_number++
+	void operator= (const Big_number& b)
 	{
-		*this = *this + 1;
-		return *this;
+		this->num = b.num; // ?
+		this->isNegative = b.isNegative;
+	}
+
+	void operator= (int n)
+	{
+		Big_number c;
+		int_to_big_number(c, n);
+		*this = c;
+	}
+
+	bool operator== (const Big_number& b)
+	{
+		if (this->isNegative != b.isNegative)
+			return false;
+
+		if (this->num.size() != b.num.size())
+			return false;
+
+		for (int i = 0; i < b.num.size(); i++)
+			if (this->num[i] != b.num[i])
+				return false;
+
+		return true;
 	}
 
 	Big_number& operator++ () // ++Big_number
 	{
 		*this = *this + 1;
 		return *this;
+	}
+
+	Big_number operator++ (int) // Big_number++
+	{
+		Big_number temp = *this;
+		*this = *this + 1;
+		return temp;
 	}
 };
 
@@ -160,11 +196,53 @@ int main()
 {
 	Big_number x, y, result;
 
+	cout << "x: ";
 	cin >> x;
-	//result = x + y;
-	x += -1'999'999'999;
-	//x++;
-	cout << x << endl;
+	cout << "y: ";
+	cin >> y;
+
+	cout << endl;
+	cout << "x + y = " << x + y << endl;
+
+	cout << endl;
+	cout << "x + 15 = " << x + 15 << endl;
+	x += 15;
+	cout << "x += 15 = " << x << endl;
+
+	cout << "x + 1'000'000'001 = " << x + 1'000'000'001 << endl;
+	x += 1'000'000'001;
+	cout << "x += 1'000'000'001 = " << x << endl;
+
+	cout << endl;
+	y = x;
+	x = 2'000'000'002;
+	cout << "x = " << x << endl;
+	cout << "y = " << y << endl;
+	cout << "x + y = " << x + y << endl;
+	x += y;
+	cout << "x += y = " << x << endl;
+	
+	cout << endl;
+	cout << "x = " << x << endl;
+	cout << "y = " << y << endl;
+	if (x == y)
+		cout << "x == y" << endl;
+	else
+		cout << "x != y" << endl;
+	x = y;
+	cout << "x = " << x << endl;
+	cout << "y = " << y << endl;
+	if (x == y)
+		cout << "x == y" << endl;
+	else
+		cout << "x != y" << endl;
+
+	cout << endl;
+	cout << "x = " << x << endl;
+	cout << "x++ = " << x++ << endl;
+	cout << "x++ = " << x++ << endl;
+	cout << "++x = " << ++x << endl;
+	cout << "x = " << x << endl;
 
 	system("pause");
 	return 0;
