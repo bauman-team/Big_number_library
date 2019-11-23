@@ -70,6 +70,7 @@ struct Big_number
 			{
 				this->isNegative = false;
 				c = b - *this;
+				this->isNegative = true; // отмен€ю изменени€
 			}
 			else
 			{
@@ -177,10 +178,9 @@ struct Big_number
 		return true;
 	}
 
-	Big_number& operator++ () // ++Big_number
+	Big_number operator++ () // ++Big_number
 	{
-		*this = *this + 1;
-		return *this;
+		return *this + 1;
 	}
 
 	Big_number operator++ (int) // Big_number++
