@@ -1,0 +1,266 @@
+#include "main_header.h"
+
+Big_number Big_number::operator++ (int) // Big_number++
+{
+	Big_number temp = *this;
+	*this = *this + 1;
+	return temp;
+}
+
+Big_number Big_number::operator- ()
+{
+	Big_number c = *this;
+	c.isNegative = !c.isNegative;
+	return c;
+}
+
+Big_number Big_number::operator++ () // ++Big_number
+{
+	*this = *this + 1;
+	return *this + 1;
+}
+
+void Big_number::string_to_big_number(Big_number & number, string s_x)
+{
+	if (s_x[0] == '-')
+	{
+		number.isNegative = true;
+		s_x.erase(0, 1);
+	}
+	for (int i = s_x.size(); i > 0; i -= 9)
+	{
+		if (i >= 9)
+			number.num.push_back(atoi(s_x.substr(i - 9, 9).c_str()));
+		else
+			number.num.push_back(atoi(s_x.substr(0, i).c_str()));
+	}
+	if (number.num.size() == 1 && number.num[0] == 0)
+		number.isNegative = false;
+}
+
+void Big_number::int_to_big_number(Big_number & number, int i_x)
+{
+	number.num.push_back(i_x % 1'000'000'000);
+	if (i_x / 1'000'000'000)
+		number.num.push_back(i_x / 1'000'000'000);
+}
+
+Big_number Big_number::operator+(Big_number b)
+{
+	Big_number c;
+	if (this->isNegative != b.isNegative) // Сложение не меняет знаки переменных => если они разные => вычитание
+	{
+		if (this->isNegative)
+		{
+			this->isNegative = false;
+			c = b - *this;
+			this->isNegative = true; // отменяю изменения
+		}
+		else
+		{
+			b.isNegative = false;
+			c = *this - b;
+		}
+	}
+	else
+	{
+		int buffer = 0;
+		c.isNegative = b.isNegative;
+		for (int i = 0; i < min(this->num.size(), b.num.size()); i++)
+		{
+			buffer += this->num[i] + b.num[i];
+			c.num.push_back(buffer % 1'000'000'000);
+			buffer /= 1'000'000'000;
+		}
+		if (this->num.size() > b.num.size())
+		{
+			for (int i = b.num.size(); i < this->num.size(); i++)
+			{
+				buffer += this->num[i];
+				c.num.push_back(buffer % 1000'000'000);
+				buffer /= 1'000'000'000;
+			}
+		}
+		else if (this->num.size() < b.num.size())
+		{
+			for (int i = this->num.size(); i < b.num.size(); i++)
+			{
+				buffer += b.num[i];
+				c.num.push_back(buffer % 1'000'000'000);
+				buffer /= 1'000'000'000;
+			}
+		}
+		if (buffer)
+			c.num.push_back(1);
+	}
+	return c;
+}
+
+Big_number Big_number::operator-(Big_number b)
+{
+	Big_number c;
+	if (this->isNegative != b.isNegative) // Вычитание меняет знак => переменные станут одного занка => сложение
+	{
+		b.isNegative = !b.isNegative;
+		c = *this + b;
+	}
+	else
+	{
+		// Здесь надо переопределить операцию вычитания
+		if (*this == b)
+			c.num.push_back(0);
+		else if (b.isNegative)
+		{
+			// (-this) - (-b) --> (+b) - (+this)
+			//b = -b;
+			//*this = -*this;
+			if (*this < b) // (-this) < (-b) | * (-1) == this > b
+			{
+				for (int i = 0; i < b.num.size(); i++)
+					c.num.push_back(this->num[i] - b.num[i]);
+				for (int i = b.num.size(); i < this->num.size(); i++)
+					c.num.push_back(this->num[i]);
+				for (int i = 0; i < c.num.size() - 1; i++)
+					if (c.num[i] < 0)
+					{
+						c.num[i] += 1'000'000'000;
+						c.num[i + 1]--;
+					}
+				c.isNegative = true;
+				//*this = -*this; // возвращаю исходное состояние
+			}
+			else
+			{
+				for (int i = 0; i < this->num.size(); i++)
+					c.num.push_back(b.num[i] - this->num[i]);
+				for (int i = this->num.size(); i < b.num.size(); i++)
+					c.num.push_back(b.num[i]);
+				for (int i = 0; i < c.num.size() - 1; i++)
+					if (c.num[i] < 0)
+					{
+						c.num[i] += 1'000'000'000;
+						c.num[i + 1]--;
+					}
+			}
+		}
+		else
+		{
+			//(+this) - (+b)  
+			if (*this > b)
+			{
+				for (int i = 0; i < b.num.size(); i++)
+					c.num.push_back(this->num[i] - b.num[i]);
+				for (int i = b.num.size(); i < this->num.size(); i++)
+					c.num.push_back(this->num[i]);
+				for (int i = 0; i < c.num.size() - 1; i++)
+					if (c.num[i] < 0)
+					{
+						c.num[i] += 1'000'000'000;
+						c.num[i + 1]--;
+					}
+			}
+			else
+			{
+				for (int i = 0; i < this->num.size(); i++)
+					c.num.push_back(b.num[i] - this->num[i]);
+				for (int i = this->num.size(); i < b.num.size(); i++)
+					c.num.push_back(b.num[i]);
+				for (int i = 0; i < c.num.size() - 1; i++)
+					if (c.num[i] < 0)
+					{
+						c.num[i] += 1'000'000'000;
+						c.num[i + 1]--;
+					}
+				c.isNegative = true;
+			}
+		}
+		// чистка пустых элементов вектора
+		for (int i = c.num.size() - 1; (i > 0) && (c.num[i] == 0); i--)
+			c.num.pop_back();
+	}
+	return c;
+}
+
+Big_number Big_number::operator+(int n)
+{
+	/*ostringstream s_x;
+		s_x << n;
+		Big_number c;
+		string_to_big_number(c, s_x.str());*/
+	Big_number c;
+	int_to_big_number(c, n);
+	return *this + c;
+}
+
+Big_number & Big_number::operator+=(const Big_number & b)
+{
+	*this = *this + b;
+	return *this;
+}
+
+Big_number& Big_number::operator+=(int n)
+{
+	*this = *this + n;
+	return *this;
+}
+
+void Big_number::operator=(const Big_number & b)
+{
+	this->num = b.num; // ?
+	this->isNegative = b.isNegative;
+}
+
+void Big_number::operator=(int n)
+{
+	Big_number c;
+	int_to_big_number(c, n);
+	*this = c;
+}
+
+bool Big_number::operator==(const Big_number & b)
+{
+	if (this->isNegative != b.isNegative)
+		return false;
+
+	if (this->num.size() != b.num.size())
+		return false;
+
+	for (int i = 0; i < b.num.size(); i++)
+		if (this->num[i] != b.num[i])
+			return false;
+
+	return true;
+}
+
+bool Big_number::operator>(const Big_number & b)
+{
+	if (this->isNegative != b.isNegative)
+	{
+		if (this->isNegative)
+			return false;
+		return true;
+	}
+	if (this->num.size() != b.num.size())
+	{
+		if (this->isNegative && (this->num.size() > b.num.size()))
+			return false;
+		if (!this->isNegative && (this->num.size() < b.num.size()))
+			return false;
+		return true;
+	}
+	for (int i = 0; i < this->num.size(); i++)
+		if (this->num[i] > b.num[i])
+			return !b.isNegative;
+		else if (this->num[i] < b.num[i])
+			return b.isNegative;
+	return false;
+}
+
+bool Big_number::operator< (const Big_number& b)
+{
+	if (*this > b)
+		return false;
+	if (*this == b)
+		return false;
+	return true;
+}
