@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="struct_big_number.cpp">
+    <ClCompile Include="big_number_main_functions.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,7 +26,7 @@
     <ClInclude Include="tasks.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="main_header.h">
+    <ClInclude Include="struct_big_number.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>

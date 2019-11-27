@@ -1,15 +1,22 @@
-#include "main_header.h"
+#include "struct_big_number.h"
 
 int main()
 {
 	Big_number x, y, result;
 
-	cout << "x: ";
-	cin >> x;
-	cout << "y: ";
-	cin >> y;
+	while (true)
+	{
+		cout << "x: ";
+		cin >> x;
+		cout << "y: ";
+		cin >> y;
+		cout << endl;
+		cout << "x * y: " << (x * y);
+		//cout << x - y;
+		cout << endl;
+	}
 
-	cout << endl;
+	/*cout << endl;
 	cout << "x + y = " << x + y << endl;
 
 	cout << endl;
@@ -67,7 +74,7 @@ int main()
 	cout << "x = " << x << endl;
 	cout << "y = " << y << endl;
 	cout << "x - y = " << x - y << endl;
-	cout << "y - x = " << y - x << endl;
+	cout << "y - x = " << y - x << endl;*/
 
 
 	system("pause");

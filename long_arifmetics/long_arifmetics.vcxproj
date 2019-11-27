@@ -116,10 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="struct_big_number.cpp" />
+    <ClCompile Include="big_number_main_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main_header.h" />
+    <ClInclude Include="struct_big_number.h" />
     <ClInclude Include="tasks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

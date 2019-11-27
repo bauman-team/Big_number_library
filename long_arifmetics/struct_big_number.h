@@ -37,6 +37,7 @@ struct Big_number
 		string s_x;
 		cin >> s_x;
 		number.num.erase(number.num.begin(), number.num.end());
+		number.isNegative = false;
 		string_to_big_number(number, s_x);
 		return in;
 	}
@@ -48,9 +49,15 @@ struct Big_number
 	void operator= (const Big_number& b);
 	void operator= (int n);
 	bool operator== (const Big_number& b);
+	bool operator== (int);
 	bool operator> (const Big_number& b);
 	bool operator< (const Big_number& b);
 	Big_number operator++ (); // ++Big_number
 	Big_number operator++ (int); // Big_number++
 	Big_number operator- (); 
+	Big_number operator* (Big_number b);
+	bool operator!= (Big_number b);
+	static Big_number abs(Big_number);
+	static Big_number multiple(Big_number a, Big_number b);
+	Big_number operator-= (const Big_number &b);
 };

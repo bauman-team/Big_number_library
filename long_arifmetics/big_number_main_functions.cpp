@@ -1,4 +1,4 @@
-#include "main_header.h"
+#include "struct_big_number.h"
 
 Big_number Big_number::operator++ (int) // Big_number++
 {
@@ -12,6 +12,70 @@ Big_number Big_number::operator- ()
 	Big_number c = *this;
 	c.isNegative = !c.isNegative;
 	return c;
+}
+
+Big_number Big_number::operator*(Big_number b)
+{
+	Big_number c;
+	if (abs(*this) < abs(b))
+		c = multiple(abs(*this), abs(b));
+	else
+		c = multiple(abs(b), abs(*this));
+	if (this->isNegative != b.isNegative)
+		c.isNegative = true;
+	if (abs(c) == 0)
+		c.isNegative = false;
+	return c;
+}
+
+bool Big_number::operator!=(Big_number b)
+{
+	if (*this == b)
+		return false;
+	return true;
+}
+
+Big_number Big_number::abs(Big_number b)
+{
+	b.isNegative = false;
+	return b;
+}
+
+Big_number Big_number::multiple(Big_number a, Big_number b)
+{
+	Big_number c, koef, result;
+	c.num.push_back(0);
+	koef.num.push_back(0);
+	result.num.push_back(0);
+	while (koef != a)
+	{
+		if ((koef + koef < a) || (koef + koef == a))
+		{
+			if (koef == 0)
+			{
+				koef = 1;
+				c = b;
+			}
+			else
+			{
+				koef += koef;
+				c += c;
+			}
+		}
+		if ((koef + koef > a) || (koef == a))
+		{
+			a -= koef;
+			koef = 0;
+			result += c;
+		}
+	}
+	return result;
+}
+
+Big_number Big_number::operator-= (const Big_number &b)
+{
+	*this = *this - b;
+	return *this;
 }
 
 Big_number Big_number::operator++ () // ++Big_number
@@ -232,6 +296,15 @@ bool Big_number::operator==(const Big_number & b)
 	return true;
 }
 
+bool Big_number::operator==(int b)
+{
+	Big_number c;
+	c = b;
+	if (c == *this)
+		return true;
+	return false;
+}
+
 bool Big_number::operator>(const Big_number & b)
 {
 	if (this->isNegative != b.isNegative)
@@ -248,7 +321,7 @@ bool Big_number::operator>(const Big_number & b)
 			return false;
 		return true;
 	}
-	for (int i = 0; i < this->num.size(); i++)
+	for (int i = this->num.size() - 1; i >= 0; i--)
 		if (this->num[i] > b.num[i])
 			return !b.isNegative;
 		else if (this->num[i] < b.num[i])
