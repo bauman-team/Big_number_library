@@ -60,4 +60,7 @@ struct Big_number
 	static Big_number abs(Big_number);
 	static Big_number multiple(Big_number a, Big_number b);
 	Big_number operator-= (const Big_number &b);
+	bool operator!= (int);
+	bool operator<= (Big_number);
+	bool operator>= (Big_number);
 };

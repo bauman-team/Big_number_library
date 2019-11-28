@@ -10,7 +10,8 @@ Big_number Big_number::operator++ (int) // Big_number++
 Big_number Big_number::operator- ()
 {
 	Big_number c = *this;
-	c.isNegative = !c.isNegative;
+	if (c != 0)
+		c.isNegative = !c.isNegative;
 	return c;
 }
 
@@ -22,9 +23,7 @@ Big_number Big_number::operator*(Big_number b)
 	else
 		c = multiple(abs(b), abs(*this));
 	if (this->isNegative != b.isNegative)
-		c.isNegative = true;
-	if (abs(c) == 0)
-		c.isNegative = false;
+		c = -c;
 	return c;
 }
 
@@ -49,7 +48,7 @@ Big_number Big_number::multiple(Big_number a, Big_number b)
 	result.num.push_back(0);
 	while (koef != a)
 	{
-		if ((koef + koef < a) || (koef + koef == a))
+		if ((koef + koef <= a))
 		{
 			if (koef == 0)
 			{
@@ -76,6 +75,27 @@ Big_number Big_number::operator-= (const Big_number &b)
 {
 	*this = *this - b;
 	return *this;
+}
+
+bool Big_number::operator!=(int n)
+{
+	if (*this == n)
+		return false;
+	return true;
+}
+
+bool Big_number::operator<=(Big_number b)
+{
+	if (*this < b || *this == b)
+		return true;
+	return false;
+}
+
+bool Big_number::operator>=(Big_number b)
+{
+	if (*this > b || *this == b)
+		return true;
+	return false;
 }
 
 Big_number Big_number::operator++ () // ++Big_number
