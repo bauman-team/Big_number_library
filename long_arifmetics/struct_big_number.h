@@ -63,4 +63,9 @@ struct Big_number
 	bool operator!= (int);
 	bool operator<= (Big_number);
 	bool operator>= (Big_number);
+	Big_number operator/ (Big_number b);
+	Big_number operator--();
+	Big_number operator--(int);
+	Big_number operator-(int);
+	
 };

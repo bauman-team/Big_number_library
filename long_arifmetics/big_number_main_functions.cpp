@@ -2,9 +2,8 @@
 
 Big_number Big_number::operator++ (int) // Big_number++
 {
-	Big_number temp = *this;
 	*this = *this + 1;
-	return temp;
+	return *this - 1;
 }
 
 Big_number Big_number::operator- ()
@@ -98,10 +97,76 @@ bool Big_number::operator>=(Big_number b)
 	return false;
 }
 
+Big_number Big_number::operator/(Big_number b)
+{
+	if (b == 0)
+		throw;
+	Big_number c, koef, result, a = abs(*this);
+	bool flag = false;
+	if (this->isNegative != b.isNegative)
+		flag = true;
+	b = abs(b);
+	c.num.push_back(0);
+	koef.num.push_back(0);
+	result.num.push_back(0);
+	while (a >= b)
+	{
+		if (c + c <= a)
+		{
+			if (koef == 0)
+			{
+				koef = 1;
+				c = b;
+			}
+			else
+			{
+				koef += koef;
+				c += c;
+			}
+		}
+		if (c + c > a)
+		{
+			result += koef;
+			if (c != b)
+			{
+				koef = 0;
+				a -= c;
+				c = 0;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	if (flag)
+		result = -result;
+	return result;
+}
+
+Big_number Big_number::operator--()
+{
+	*this = *this - 1;
+	return *this;
+}
+
+Big_number Big_number::operator--(int)
+{
+	*this = *this - 1;
+	return *this + 1;
+}
+
+Big_number Big_number::operator-(int b)
+{
+	Big_number c;
+	int_to_big_number(c, b);
+	return *this - c;
+}
+
 Big_number Big_number::operator++ () // ++Big_number
 {
 	*this = *this + 1;
-	return *this + 1;
+	return *this;
 }
 
 void Big_number::string_to_big_number(Big_number & number, string s_x)
@@ -111,6 +176,8 @@ void Big_number::string_to_big_number(Big_number & number, string s_x)
 		number.isNegative = true;
 		s_x.erase(0, 1);
 	}
+	while (s_x[0] == '0' && s_x.size() != 1)
+		s_x.erase(0, 1);
 	for (int i = s_x.size(); i > 0; i -= 9)
 	{
 		if (i >= 9)
@@ -267,10 +334,6 @@ Big_number Big_number::operator-(Big_number b)
 
 Big_number Big_number::operator+(int n)
 {
-	/*ostringstream s_x;
-		s_x << n;
-		Big_number c;
-		string_to_big_number(c, s_x.str());*/
 	Big_number c;
 	int_to_big_number(c, n);
 	return *this + c;
