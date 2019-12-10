@@ -18,7 +18,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="big_number_main_functions.cpp">
+    <ClCompile Include="operators_Big_Int.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="functions_Big_Int.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,7 +29,7 @@
     <ClInclude Include="tasks.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="struct_big_number.h">
+    <ClInclude Include="class_Big_Int.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>

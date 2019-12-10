@@ -1,8 +1,8 @@
-#include "struct_big_number.h"
+#include "class_Big_Int.h"
 
 int main()
 {
-	Big_number x, y, result;
+	Big_Int x, y, result;
 	char sign;
 
 	while (true)
