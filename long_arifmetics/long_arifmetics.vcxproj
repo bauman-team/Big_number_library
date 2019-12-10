@@ -115,11 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="functions_Big_Int.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="big_number_main_functions.cpp" />
+    <ClCompile Include="operators_Big_Int.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="struct_big_number.h" />
+    <ClInclude Include="class_Big_Int.h" />
     <ClInclude Include="tasks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
