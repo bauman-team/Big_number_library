@@ -14,28 +14,28 @@ public:
 	friend istream& operator>> (istream &in, Big_Int& number);
 	Big_Int operator+ (Big_Int b); // Big_Int + Big_Int
 	Big_Int operator- (Big_Int b); // Big_Int - Big_Int
-	Big_Int operator+ (int n); // Big_Int + int
+	Big_Int operator++ (); // ++Big_Int
+	Big_Int operator- ();
+	Big_Int operator/ (Big_Int b);
+	Big_Int operator--();
+	Big_Int operator* (Big_Int b);
 	Big_Int& operator+= (const Big_Int& b); // Big_Int += Big_Int
-	Big_Int& operator+= (int n); // Big_Int += int
 	void operator= (const Big_Int& b);
+	Big_Int operator-= (const Big_Int &b);
+	Big_Int operator+ (int n); // Big_Int + int
+	Big_Int& operator+= (int n); // Big_Int += int
+	Big_Int operator--(int);
+	Big_Int operator-(int);
+	Big_Int operator++ (int); // Big_Int++
 	void operator= (int n);
+	bool operator<= (Big_Int);
+	bool operator>= (Big_Int);
 	bool operator== (const Big_Int& b);
 	bool operator== (int);
 	bool operator> (const Big_Int& b);
 	bool operator< (const Big_Int& b);
-	Big_Int operator++ (); // ++Big_Int
-	Big_Int operator++ (int); // Big_Int++
-	Big_Int operator- ();
-	Big_Int operator* (Big_Int b);
 	bool operator!= (Big_Int b);
-	Big_Int operator-= (const Big_Int &b);
 	bool operator!= (int);
-	bool operator<= (Big_Int);
-	bool operator>= (Big_Int);
-	Big_Int operator/ (Big_Int b);
-	Big_Int operator--();
-	Big_Int operator--(int);
-	Big_Int operator-(int);
 	bool operator>= (int);
 	bool operator<= (int);
 	bool operator> (int);
