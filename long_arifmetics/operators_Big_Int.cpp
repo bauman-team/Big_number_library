@@ -29,6 +29,16 @@ istream& operator>> (istream &in, Big_Int& number)
 	return in;
 }
 
+Big_Int Big_Int::operator+(Big_Int b)
+{
+	return summator(*this, b);
+}
+
+Big_Int Big_Int::operator-(Big_Int b)
+{
+	return subtraction(*this, b);
+}
+
 Big_Int Big_Int::operator++ (int) // Big_Int++
 {
 	*this = *this + 1;
@@ -43,6 +53,19 @@ Big_Int Big_Int::operator- ()
 	return c;
 }
 
+Big_Int Big_Int::operator/(Big_Int b)
+{
+	if (b == 0)
+		throw exception("Division by zero!");
+	return division(*this, b);
+}
+
+Big_Int Big_Int::operator--()
+{
+	*this = *this - 1;
+	return *this;
+}
+
 Big_Int Big_Int::operator*(Big_Int b)
 {
 	Big_Int c;
@@ -55,126 +78,9 @@ Big_Int Big_Int::operator*(Big_Int b)
 	return c;
 }
 
-bool Big_Int::operator!=(Big_Int b)
-{
-	if (*this == b)
-		return false;
-	return true;
-}
-
-Big_Int Big_Int::operator-= (const Big_Int &b)
-{
-	*this = *this - b;
-	return *this;
-}
-
-bool Big_Int::operator!=(int n)
-{
-	if (*this == n)
-		return false;
-	return true;
-}
-
-bool Big_Int::operator<=(Big_Int b)
-{
-	if (*this < b || *this == b)
-		return true;
-	return false;
-}
-
-bool Big_Int::operator>=(Big_Int b)
-{
-	if (*this > b || *this == b)
-		return true;
-	return false;
-}
-
-Big_Int Big_Int::operator/(Big_Int b)
-{
-	if (b == 0)
-		throw;
-	return division(*this, b);
-}
-
-Big_Int Big_Int::operator--()
-{
-	*this = *this - 1;
-	return *this;
-}
-
-Big_Int Big_Int::operator--(int)
-{
-	*this = *this - 1;
-	return *this + 1;
-}
-
-Big_Int Big_Int::operator-(int b)
-{
-	Big_Int c;
-	int_to_big_number(c, b);
-	return *this - c;
-}
-
-bool Big_Int::operator>=(int b)
-{
-	if (!(*this < b))
-		return true;
-	return false;
-}
-
-bool Big_Int::operator<=(int b)
-{
-	if (!(*this > b))
-		return true;
-	return false;
-}
-
-bool Big_Int::operator>(int b)
-{
-	Big_Int c;
-	int_to_big_number(c, b);
-	return *this > c;
-}
-
-bool Big_Int::operator<(int b)
-{
-	if (*this > b || *this == b)
-		return false;
-	return true;
-}
-
-Big_Int Big_Int::operator++ () // ++Big_Int
-{
-	*this = *this + 1;
-	return *this;
-}
-
-Big_Int Big_Int::operator+(Big_Int b)
-{
-	return summator(*this, b);
-}
-
-Big_Int Big_Int::operator-(Big_Int b)
-{
-	return subtraction(*this, b);
-}
-
-Big_Int Big_Int::operator+(int n)
-{
-	Big_Int c;
-	int_to_big_number(c, n);
-	return *this + c;
-}
-
 Big_Int & Big_Int::operator+=(const Big_Int & b)
 {
 	*this = *this + b;
-	return *this;
-}
-
-Big_Int& Big_Int::operator+=(int n)
-{
-	*this = *this + n;
 	return *this;
 }
 
@@ -184,11 +90,20 @@ void Big_Int::operator=(const Big_Int & b)
 	this->isNegative = b.isNegative;
 }
 
-void Big_Int::operator=(int n)
+Big_Int Big_Int::operator-= (const Big_Int &b)
 {
-	Big_Int c;
-	int_to_big_number(c, n);
-	*this = c;
+	*this = *this - b;
+	return *this;
+}
+
+bool Big_Int::operator<=(Big_Int b)
+{
+	return (*this > b) ? false : true;
+}
+
+bool Big_Int::operator>=(Big_Int b)
+{
+	return (*this < b) ? false : true;
 }
 
 bool Big_Int::operator==(const Big_Int & b)
@@ -204,15 +119,6 @@ bool Big_Int::operator==(const Big_Int & b)
 			return false;
 
 	return true;
-}
-
-bool Big_Int::operator==(int b)
-{
-	Big_Int c;
-	c = b;
-	if (c == *this)
-		return true;
-	return false;
 }
 
 bool Big_Int::operator>(const Big_Int & b)
@@ -241,9 +147,22 @@ bool Big_Int::operator>(const Big_Int & b)
 
 bool Big_Int::operator< (const Big_Int& b)
 {
-	if (*this > b)
-		return false;
-	if (*this == b)
-		return false;
-	return true;
+	return ((*this > b) || (*this == b)) ? false : true;
+}
+
+bool Big_Int::operator!=(Big_Int b)
+{
+	return (*this == b) ? false : true;
+}
+
+Big_Int Big_Int::operator++ () // ++Big_Int
+{
+	*this = *this + 1;
+	return *this;
+}
+
+Big_Int Big_Int::operator--(int)
+{
+	*this = *this - 1;
+	return *this + 1;
 }

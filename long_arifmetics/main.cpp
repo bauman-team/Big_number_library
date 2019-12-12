@@ -3,8 +3,11 @@
 int main()
 {
 	Big_Int x, y, result;
-	char sign;
+	x = 5;
+	Big_Int z = x;
 
+	char sign;
+	unsigned int a = 5;
 	while (true)
 	{
 		cout << "x: ";
@@ -14,20 +17,29 @@ int main()
 		cout << "y: ";
 		cin >> y;
 		cout << "Answer: ";
-		switch (sign)
+		//x = a;
+		//cout << x  << endl;
+		try
 		{
-		case '+':
-			cout << x + y;
-			break;
-		case '-':
-			cout << x - y;
-			break;
-		case '*':
-			cout << x * y;
-			break;
-		case '/':
-			cout << x / y;
-			break;
+			switch (sign)
+			{
+			case '+':
+				cout << x + y;
+				break;
+			case '-':
+				cout << x - y;
+				break;
+			case '*':
+				cout << x * y;
+				break;
+			case '/':
+				cout << x / y;
+				break;
+			}
+		}
+		catch (const exception &ex)
+		{
+			cout << ex.what();
 		}
 		cout << endl << endl;
 	}

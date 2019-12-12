@@ -20,14 +20,14 @@ void Big_Int::string_to_big_number(Big_Int & number, string s_x)
 		number.isNegative = false;
 }
 
-void Big_Int::int_to_big_number(Big_Int & number, int i_x)
-{
-	do
-	{
-		number.num.push_back(i_x % 1'000'000'000);
-		i_x /= 1'000'000'000;
-	} while (i_x);
-}
+//void Big_Int::int_to_big_number(Big_Int & number, int i_x)
+//{
+//	do
+//	{
+//		number.num.push_back(i_x % 1'000'000'000);
+//		i_x /= 1'000'000'000;
+//	} while (i_x);
+//}
 
 Big_Int Big_Int::abs(Big_Int b)
 {
