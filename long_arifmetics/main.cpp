@@ -3,11 +3,8 @@
 int main()
 {
 	Big_Int x, y, result;
-	x = 5;
-	Big_Int z = x;
-
 	char sign;
-	unsigned int a = 5;
+
 	while (true)
 	{
 		cout << "x: ";
@@ -17,8 +14,6 @@ int main()
 		cout << "y: ";
 		cin >> y;
 		cout << "Answer: ";
-		//x = a;
-		//cout << x  << endl;
 		try
 		{
 			switch (sign)

@@ -1,6 +1,6 @@
 #include "class_Big_Int.h"
 
-ostream& operator<< (ostream &out, Big_Int number)
+ostream& operator<< (ostream &out, const Big_Int& number)
 {
 	if (number.isNegative)
 		out << '-';
@@ -78,30 +78,30 @@ Big_Int Big_Int::operator*(Big_Int b)
 	return c;
 }
 
-Big_Int & Big_Int::operator+=(const Big_Int & b)
+Big_Int& Big_Int::operator+=(const Big_Int& b)
 {
 	*this = *this + b;
 	return *this;
 }
 
-void Big_Int::operator=(const Big_Int & b)
+void Big_Int::operator=(const Big_Int& b)
 {
 	this->num = b.num; // ?
 	this->isNegative = b.isNegative;
 }
 
-Big_Int Big_Int::operator-= (const Big_Int &b)
+Big_Int& Big_Int::operator-= (const Big_Int& b)
 {
 	*this = *this - b;
 	return *this;
 }
 
-bool Big_Int::operator<=(Big_Int b)
+bool Big_Int::operator<=(const Big_Int& b)
 {
 	return (*this > b) ? false : true;
 }
 
-bool Big_Int::operator>=(Big_Int b)
+bool Big_Int::operator>=(const Big_Int& b)
 {
 	return (*this < b) ? false : true;
 }
@@ -150,7 +150,7 @@ bool Big_Int::operator< (const Big_Int& b)
 	return ((*this > b) || (*this == b)) ? false : true;
 }
 
-bool Big_Int::operator!=(Big_Int b)
+bool Big_Int::operator!=(const Big_Int& b)
 {
 	return (*this == b) ? false : true;
 }
