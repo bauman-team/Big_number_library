@@ -33,9 +33,10 @@ private:
 	static Big_Int division		(Big_Int, Big_Int);
 public:
 	Big_Int(){}
-	Big_Int(int b)
+	typeint
+	Big_Int(T n)
 	{
-		*this = b;
+		*this = n;
 	}
 
 	friend ostream& operator<< (ostream&, const Big_Int&);
@@ -52,10 +53,12 @@ public:
 	Big_Int operator-- (int);	// Big_Int--
 	Big_Int operator- ();
 	
-	void operator=		(const Big_Int&);
 	Big_Int& operator+= (const Big_Int&);
 	Big_Int& operator-=	(const Big_Int&);
+	Big_Int& operator*= (const Big_Int&);
+	Big_Int& operator/= (const Big_Int&);
 	
+	void operator=	(const Big_Int&);
 	bool operator>	(const Big_Int&);
 	bool operator<	(const Big_Int&);
 	bool operator<= (const Big_Int&);
@@ -90,7 +93,18 @@ public:
 		*this = *this - n;
 		return *this;
 	}
-
+	typeint
+	Big_Int& operator*=(T n)
+	{
+		*this = *this * n;
+		return *this;
+	}
+	typeint
+	Big_Int& operator/=(T n)
+	{
+		*this = *this / n;
+		return *this;
+	}
 	typeint
 	bool operator== (T n)
 	{

@@ -96,6 +96,18 @@ Big_Int& Big_Int::operator-= (const Big_Int& b)
 	return *this;
 }
 
+Big_Int& Big_Int::operator*=(const Big_Int& b)
+{
+	*this = *this * b;
+	return *this;
+}
+
+Big_Int& Big_Int::operator/=(const Big_Int& b)
+{
+	*this = *this / b;
+	return *this;
+}
+
 bool Big_Int::operator<=(const Big_Int& b)
 {
 	return (*this > b) ? false : true;
