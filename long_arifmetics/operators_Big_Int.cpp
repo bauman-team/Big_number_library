@@ -23,11 +23,11 @@ std::istream& operator>> (std::istream &in, Big_Int& number)
 {
 	std::string s_x;
 	std::cin >> s_x;
-	if (Big_Int::check_string(s_x))
+	if (!Big_Int::is_valid_format(s_x))
 		throw std::exception("Invalid number!");
 	if (s_x.find('.') != std::string::npos)
 		s_x.erase(s_x.find('.'));
-	number.num.erase(number.num.begin(), number.num.end());
+	number.num.clear();
 	number.isNegative = false;
 	Big_Int::string_to_big_number(number, s_x);
 	return in;
@@ -140,11 +140,8 @@ bool Big_Int::operator==(const Big_Int & b)
 bool Big_Int::operator>(const Big_Int & b)
 {
 	if (this->isNegative != b.isNegative)
-	{
-		if (this->isNegative)
-			return false;
-		return true;
-	}
+		return (this->isNegative) ? false : true;
+
 	if (this->num.size() != b.num.size())
 	{
 		if (this->isNegative && (this->num.size() > b.num.size()))
@@ -153,6 +150,7 @@ bool Big_Int::operator>(const Big_Int & b)
 			return false;
 		return true;
 	}
+
 	for (int i = this->num.size() - 1; i >= 0; i--)
 		if (this->num[i] > b.num[i])
 			return !b.isNegative;
