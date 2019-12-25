@@ -1,6 +1,6 @@
 #include "class_Big_Int.h"
 
-void Big_Int::string_to_big_number(Big_Int & number, string s_x)
+void Big_Int::string_to_big_number(Big_Int & number, std::string s_x)
 {
 	if (s_x[0] == '-')
 	{
@@ -119,73 +119,42 @@ Big_Int Big_Int::subtraction(Big_Int a, Big_Int b)
 	}
 	else
 	{
+		bool is_change = false;
 		if (a == b)
 			c.num.push_back(0);
-		else if (b.isNegative)
+		else if (b.isNegative) // (-this) - (-b) --> (+b) - (+this)
 		{
-			// (-this) - (-b) --> (+b) - (+this)
-			//b = -b;
-			//a = -a;
-			if (a < b) // (-this) < (-b) | * (-1) == this > b
-			{
-				for (int i = 0; i < b.num.size(); i++)
-					c.num.push_back(a.num[i] - b.num[i]);
-				for (int i = b.num.size(); i < a.num.size(); i++)
-					c.num.push_back(a.num[i]);
-				for (int i = 0; i < c.num.size() - 1; i++)
-					if (c.num[i] < 0)
-					{
-						c.num[i] += 1'000'000'000;
-						c.num[i + 1]--;
-					}
-				c.isNegative = true;
-				//a = -a; // возвращаю исходное состояние
-			}
-			else
-			{
-				for (int i = 0; i < a.num.size(); i++)
-					c.num.push_back(b.num[i] - a.num[i]);
-				for (int i = a.num.size(); i < b.num.size(); i++)
-					c.num.push_back(b.num[i]);
-				for (int i = 0; i < c.num.size() - 1; i++)
-					if (c.num[i] < 0)
-					{
-						c.num[i] += 1'000'000'000;
-						c.num[i + 1]--;
-					}
-			}
-		}
-		else
-		{
-			//(+this) - (+b)  
+			is_change = true;
 			if (a > b)
 			{
-				for (int i = 0; i < b.num.size(); i++)
-					c.num.push_back(a.num[i] - b.num[i]);
-				for (int i = b.num.size(); i < a.num.size(); i++)
-					c.num.push_back(a.num[i]);
-				for (int i = 0; i < c.num.size() - 1; i++)
-					if (c.num[i] < 0)
-					{
-						c.num[i] += 1'000'000'000;
-						c.num[i + 1]--;
-					}
-			}
-			else
-			{
-				for (int i = 0; i < a.num.size(); i++)
-					c.num.push_back(b.num[i] - a.num[i]);
-				for (int i = a.num.size(); i < b.num.size(); i++)
-					c.num.push_back(b.num[i]);
-				for (int i = 0; i < c.num.size() - 1; i++)
-					if (c.num[i] < 0)
-					{
-						c.num[i] += 1'000'000'000;
-						c.num[i + 1]--;
-					}
-				c.isNegative = true;
+				Big_Int change = a;
+				a = b;
+				b = change;
+				is_change = false;
 			}
 		}
+		else //(+this) - (+b) 
+		{
+			is_change = false; 
+			if(a < b)
+			{
+				Big_Int change = a;
+				a = b;
+				b = change;
+				is_change = true;
+			}
+		}
+		for (int i = 0; i < b.num.size(); i++)
+			c.num.push_back(a.num[i] - b.num[i]);
+		for (int i = b.num.size(); i < a.num.size(); i++)
+			c.num.push_back(a.num[i]);
+		for (int i = 0; i < c.num.size() - 1; i++)
+			if (c.num[i] < 0)
+			{
+				c.num[i] += 1'000'000'000;
+				c.num[i + 1]--;
+			}
+		c.isNegative = is_change;
 		// чистка пустых элементов вектора
 		for (int i = c.num.size() - 1; (i > 0) && (c.num[i] == 0); i--)
 			c.num.pop_back();
@@ -236,4 +205,25 @@ Big_Int Big_Int::division(Big_Int a, Big_Int b)
 	if (flag)
 		result = -result;
 	return result;
+}
+
+bool Big_Int::check_string(std::string s_x)
+{
+	if (s_x[0] == '-' && s_x[1] == '.')
+		return true;
+	bool isFirst = true;
+	for (int i = 0; i < s_x.length(); i++)
+	{
+		if (s_x[i] < '0' || s_x[i] > '9')
+		{
+			if (s_x[i] != '-' || i != 0)
+			{
+				if (s_x[i] == '.' && isFirst && i != 0 && i != s_x.length() - 1)
+					isFirst = false;
+				else
+					return true;
+			}
+		}
+	}
+	return false;
 }

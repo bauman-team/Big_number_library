@@ -1,4 +1,5 @@
 #include "class_Big_Int.h"
+using namespace std;
 
 int main()
 {
@@ -7,15 +8,15 @@ int main()
 
 	while (true)
 	{
-		cout << "x: ";
-		cin >> x;
-		cout << "sign: ";
-		cin >> sign;
-		cout << "y: ";
-		cin >> y;
-		cout << "Answer: ";
 		try
 		{
+			cout << "x: ";
+			cin >> x;
+			cout << "sign: ";
+			cin >> sign;
+			cout << "y: ";
+			cin >> y;
+			cout << "Answer: ";
 			switch (sign)
 			{
 			case '+':

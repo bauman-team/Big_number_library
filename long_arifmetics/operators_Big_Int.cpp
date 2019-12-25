@@ -1,6 +1,6 @@
 #include "class_Big_Int.h"
 
-ostream& operator<< (ostream &out, const Big_Int& number)
+std::ostream& operator<< (std::ostream &out, const Big_Int& number)
 {
 	if (number.isNegative)
 		out << '-';
@@ -19,10 +19,14 @@ ostream& operator<< (ostream &out, const Big_Int& number)
 	return out;
 }
 
-istream& operator>> (istream &in, Big_Int& number)
+std::istream& operator>> (std::istream &in, Big_Int& number)
 {
-	string s_x;
-	cin >> s_x;
+	std::string s_x;
+	std::cin >> s_x;
+	if (Big_Int::check_string(s_x))
+		throw std::exception("Invalid number!");
+	if (s_x.find('.') != std::string::npos)
+		s_x.erase(s_x.find('.'));
 	number.num.erase(number.num.begin(), number.num.end());
 	number.isNegative = false;
 	Big_Int::string_to_big_number(number, s_x);
@@ -56,7 +60,7 @@ Big_Int Big_Int::operator- ()
 Big_Int Big_Int::operator/(Big_Int b)
 {
 	if (b == 0)
-		throw exception("Division by zero!");
+		throw std::exception("Division by zero!");
 	return division(*this, b);
 }
 

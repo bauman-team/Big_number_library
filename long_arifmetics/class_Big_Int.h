@@ -1,20 +1,18 @@
 #pragma once
 
-#define typeint template<class T, class = enable_if_t<is_same<T, int>::value || is_same<T, long long>::value || is_same<T, long>::value || is_same<T, short>::value || is_same<T, unsigned int>::value || is_same<T, unsigned long long>::value || is_same<T, unsigned long>::value || is_same<T, unsigned short>::value>>
+#define typeint template<class T, class = std::enable_if_t<std::is_same<T, int>::value || std::is_same<T, long long>::value || std::is_same<T, long>::value || std::is_same<T, short>::value || std::is_same<T, unsigned int>::value || std::is_same<T, unsigned long long>::value || std::is_same<T, unsigned long>::value || std::is_same<T, unsigned short>::value>>
 
 #include <iostream>
 #include <vector>
 #include <string>
 
-using namespace std;
-
 
 class Big_Int
 {
 private:
-	vector <int> num;
-	bool isNegative = false; // может переместить в конструктор?
-	static void string_to_big_number(Big_Int&, string);
+	std::vector <int> num;
+	bool isNegative = false;
+	static void string_to_big_number(Big_Int&, std::string);
 	typeint
 	static Big_Int int_to_big_number(T i_x)
 	{
@@ -31,6 +29,7 @@ private:
 	static Big_Int summator		(Big_Int, Big_Int);
 	static Big_Int subtraction	(Big_Int, Big_Int);
 	static Big_Int division		(Big_Int, Big_Int);
+	static bool check_string    (std::string);
 public:
 	Big_Int(){}
 	typeint
@@ -39,8 +38,8 @@ public:
 		*this = n;
 	}
 
-	friend ostream& operator<< (ostream&, const Big_Int&);
-	friend istream& operator>> (istream&,		Big_Int&);
+	friend std::ostream& operator<< (std::ostream&, const Big_Int&);
+	friend std::istream& operator>> (std::istream&,		Big_Int&);
 
 	Big_Int operator+ (Big_Int);
 	Big_Int operator- (Big_Int);
