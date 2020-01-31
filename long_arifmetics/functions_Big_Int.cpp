@@ -66,7 +66,7 @@ Big_Int Big_Int::summator(Big_Int a, Big_Int b)
 		{
 			a.isNegative = false;
 			c = b - a;
-			a.isNegative = true; // отмен€ю изменени€
+			a.isNegative = true; // отмен€ю изменени€ (зачем?)
 		}
 		else
 		{
@@ -136,7 +136,7 @@ Big_Int Big_Int::subtraction(Big_Int a, Big_Int b)
 		else //(+this) - (+b) 
 		{
 			is_change = false; 
-			if(a < b)
+			if (a < b)
 			{
 				Big_Int change = a;
 				a = b;
@@ -197,9 +197,7 @@ Big_Int Big_Int::division(Big_Int a, Big_Int b)
 				c = 0;
 			}
 			else
-			{
 				break;
-			}
 		}
 	}
 	if (flag)
@@ -207,10 +205,10 @@ Big_Int Big_Int::division(Big_Int a, Big_Int b)
 	return result;
 }
 
-bool Big_Int::check_string(std::string s_x)
+bool Big_Int::is_valid_format(std::string s_x)
 {
 	if (s_x[0] == '-' && s_x[1] == '.')
-		return true;
+		return false;
 	bool isFirst = true;
 	for (int i = 0; i < s_x.length(); i++)
 	{
@@ -221,9 +219,9 @@ bool Big_Int::check_string(std::string s_x)
 				if (s_x[i] == '.' && isFirst && i != 0 && i != s_x.length() - 1)
 					isFirst = false;
 				else
-					return true;
+					return false;
 			}
 		}
 	}
-	return false;
+	return true;
 }
