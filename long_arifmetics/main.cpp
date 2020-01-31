@@ -7,7 +7,7 @@ int main()
 	char sign;
 	y = 0;
 	result = x = y;
-	result = x = 0;
+	y = x = 0;
 	while (true)
 	{
 		try
