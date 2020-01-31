@@ -5,9 +5,9 @@ int main()
 {
 	Big_Int x, y, result;
 	char sign;
-	y = 1;
+	y = 0;
 	result = x = y;
-	result = x = 1;
+	result = x = 0;
 	while (true)
 	{
 		try
