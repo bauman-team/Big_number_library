@@ -57,7 +57,7 @@ public:
 	Big_Int& operator*= (const Big_Int&);
 	Big_Int& operator/= (const Big_Int&);
 	
-	void operator=	(const Big_Int&);
+	Big_Int operator=	(const Big_Int&);
 	bool operator>	(const Big_Int&);
 	bool operator<	(const Big_Int&);
 	bool operator<= (const Big_Int&);
@@ -76,9 +76,10 @@ public:
 		return *this - int_to_big_number(n);
 	}
 	typeint
-	void operator= (T n)
+	Big_Int operator= (T n)
 	{
 		*this = int_to_big_number(n);
+		return *this;
 	}
 	typeint
 	Big_Int& operator+= (T n)

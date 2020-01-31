@@ -5,7 +5,9 @@ int main()
 {
 	Big_Int x, y, result;
 	char sign;
-
+	y = 1;
+	result = x = y;
+	result = x = 1;
 	while (true)
 	{
 		try

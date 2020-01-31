@@ -88,10 +88,11 @@ Big_Int& Big_Int::operator+=(const Big_Int& b)
 	return *this;
 }
 
-void Big_Int::operator=(const Big_Int& b)
+Big_Int Big_Int::operator=(const Big_Int& b)
 {
 	this->num = b.num; // ?
 	this->isNegative = b.isNegative;
+	return *this;
 }
 
 Big_Int& Big_Int::operator-= (const Big_Int& b)
