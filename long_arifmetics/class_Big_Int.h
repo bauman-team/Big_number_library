@@ -39,11 +39,18 @@ private:
 	static Big_Int division		(Big_Int, Big_Int);
 	static bool is_valid_format (std::string);
 public:
-	Big_Int(){}
+	Big_Int() {}
 	typeint
 	Big_Int(T n)
 	{
 		*this = n;
+	}
+	Big_Int(const char *n)
+	{
+		std::string s_x;
+		for (int i = 0; n[i]; ++i)
+			s_x += n[i];
+		*this = s_x;
 	}
 
 	friend std::ostream& operator<< (std::ostream&, const Big_Int&);
@@ -66,6 +73,7 @@ public:
 	Big_Int& operator/= (const Big_Int&);
 	
 	Big_Int operator=	(const Big_Int&);
+	Big_Int operator=	(std::string);
 	bool operator>	(const Big_Int&);
 	bool operator<	(const Big_Int&);
 	bool operator<= (const Big_Int&);

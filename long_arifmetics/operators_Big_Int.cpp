@@ -95,6 +95,19 @@ Big_Int Big_Int::operator=(const Big_Int& b)
 	return *this;
 }
 
+Big_Int Big_Int::operator=(std::string b)
+{
+	std::string s_x = b;
+	if (!Big_Int::is_valid_format(s_x))
+		throw std::exception("Invalid number!");
+	if (s_x.find('.') != std::string::npos)
+		s_x.erase(s_x.find('.'));
+	num.clear();
+	isNegative = false;
+	Big_Int::string_to_big_number(*this, s_x);
+	return *this;
+}
+
 Big_Int& Big_Int::operator-= (const Big_Int& b)
 {
 	*this = *this - b;

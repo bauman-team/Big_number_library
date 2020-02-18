@@ -1,13 +1,14 @@
 #include "class_Big_Int.h"
+#include <ctime>
 using namespace std;
+
+int get_sizeof_num(Big_Int);
 
 int main()
 {
-	Big_Int x, y, result;
+	Big_Int x, y, result = "789876787654345678";
+	double start;
 	char sign;
-	y = 0;
-	result = x = y;
-	y = x = 0;
 	while (true)
 	{
 		try
@@ -19,21 +20,25 @@ int main()
 			cout << "y: ";
 			cin >> y;
 			cout << "Answer: ";
+			start = clock();
 			switch (sign)
 			{
 			case '+':
-				cout << x + y;
+				result = x + y;
 				break;
 			case '-':
-				cout << x - y;
+				result = x - y;
 				break;
 			case '*':
-				cout << x * y;
+				result = x * y;
 				break;
 			case '/':
-				cout << x / y;
+				result = x / y;
 				break;
 			}
+			start = (clock() - start) /  1000.;
+			cout << result;
+			cout << "\nTime of calculation: " << start << "\n";
 		}
 		catch (const exception &ex)
 		{
