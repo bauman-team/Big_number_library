@@ -95,9 +95,11 @@ Big_Int Big_Int::operator=(const Big_Int& b)
 	return *this;
 }
 
-Big_Int Big_Int::operator=(std::string b)
+Big_Int Big_Int::operator=(const char* b)
 {
-	std::string s_x = b;
+	std::string s_x;
+	for (int i = 0; b[i]; ++i)
+		s_x += b[i];
 	if (!Big_Int::is_valid_format(s_x))
 		throw std::exception("Invalid number!");
 	if (s_x.find('.') != std::string::npos)

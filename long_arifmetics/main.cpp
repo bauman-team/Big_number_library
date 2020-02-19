@@ -6,7 +6,8 @@ int get_sizeof_num(Big_Int);
 
 int main()
 {
-	Big_Int x, y, result = "789876787654345678";
+	Big_Int x, y, result;
+	result = "00789876787654345678";
 	double start;
 	char sign;
 	while (true)
