@@ -24,6 +24,12 @@
     <ClCompile Include="functions_Big_Int.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
+    <ClCompile Include="operators_Big_Double.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="functions_Big_Double.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tasks.h">
@@ -31,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="class_Big_Int.h">
       <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
+    <ClInclude Include="class_Big_Double.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

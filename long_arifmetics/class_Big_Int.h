@@ -14,12 +14,15 @@
 #include <vector>
 #include <string>
 
-
+class Big_Double;
 class Big_Int
 {
-private:
+protected:
 	std::vector <int> num;
 	bool isNegative = false;
+	
+	friend Big_Double;
+
 	static void string_to_big_number(Big_Int&, std::string);
 	typeint
 	static Big_Int int_to_big_number(T i_x)

@@ -1,5 +1,7 @@
 #include "class_Big_Int.h"
+#include "class_Big_Double.h"
 #include <ctime>
+
 using namespace std;
 
 int get_sizeof_num(Big_Int);
@@ -7,7 +9,12 @@ int get_sizeof_num(Big_Int);
 int main()
 {
 	Big_Int x, y, result;
-	result = "00789876787654345678";
+	Big_Double a;
+	while (true)
+	{
+		cin >> a;
+		cout << "\n" << a << "\n";
+	}
 	double start;
 	char sign;
 	while (true)

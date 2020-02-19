@@ -115,11 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="functions_Big_Double.cpp" />
     <ClCompile Include="functions_Big_Int.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="operators_Big_Double.cpp" />
     <ClCompile Include="operators_Big_Int.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="class_Big_Double.h" />
     <ClInclude Include="class_Big_Int.h" />
     <ClInclude Include="tasks.h" />
   </ItemGroup>
