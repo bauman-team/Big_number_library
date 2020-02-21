@@ -12,8 +12,15 @@ int main()
 	Big_Double a;
 	while (true)
 	{
-		cin >> a;
-		cout << "\n" << a << "\n";
+		try
+		{
+			cin >> a;
+			cout << "\n" << a << "\n";
+		}
+		catch (exception &ex)
+		{
+			cout << "\n" << ex.what() << "\n";
+		}
 	}
 	double start;
 	char sign;

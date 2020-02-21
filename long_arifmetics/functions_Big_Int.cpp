@@ -207,7 +207,7 @@ Big_Int Big_Int::division(Big_Int a, Big_Int b)
 
 bool Big_Int::is_valid_format(std::string s_x)
 {
-	if (s_x[0] == '-' && s_x[1] == '.')
+	if (s_x[0] == '-' && (s_x[1] == '.' || s_x.length() == 1))
 		return false;
 	bool isFirst = true;
 	for (int i = 0; i < s_x.length(); i++)
