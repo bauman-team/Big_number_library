@@ -8,20 +8,8 @@ int get_sizeof_num(Big_Int);
 
 int main()
 {
-	Big_Int x, y, result;
-	Big_Double a;
-	while (true)
-	{
-		try
-		{
-			cin >> a;
-			cout << "\n" << a << "\n";
-		}
-		catch (exception &ex)
-		{
-			cout << "\n" << ex.what() << "\n";
-		}
-	}
+	setlocale(0, "ru");
+	Big_Double x, y, result;
 	double start;
 	char sign;
 	while (true)
@@ -45,10 +33,10 @@ int main()
 				result = x - y;
 				break;
 			case '*':
-				result = x * y;
+				//result = x * y;
 				break;
 			case '/':
-				result = x / y;
+				//result = x / y;
 				break;
 			}
 			start = (clock() - start) /  1000.;

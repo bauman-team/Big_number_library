@@ -22,8 +22,8 @@ protected:
 	bool isNegative = false;
 	
 	friend Big_Double;
-
-	static void string_to_big_number(Big_Int&, std::string);
+	template <class T>
+	static void string_to_big_number(T&, std::string);
 	typeint
 	static Big_Int int_to_big_number(T i_x)
 	{
@@ -152,3 +152,24 @@ public:
 		return *this < int_to_big_number(n);
 	}
 };
+
+template<class T>
+inline void Big_Int::string_to_big_number(T & number, std::string s_x)
+{
+	if (s_x[0] == '-')
+	{
+		number.isNegative = true;
+		s_x.erase(0, 1);
+	}
+	while (s_x[0] == '0' && s_x.size() != 1 && typeid(number).name() == const_cast<const char*> ("Big_Int"))
+		s_x.erase(0, 1);
+	for (int i = s_x.size(); i > 0; i -= 9)
+	{
+		if (i >= 9)
+			number.num.push_back(atoi(s_x.substr(i - 9, 9).c_str()));
+		else
+			number.num.push_back(atoi(s_x.substr(0, i).c_str()));
+	}
+	if (number.num.size() == 1 && number.num[0] == 0)
+		number.isNegative = false;
+}
